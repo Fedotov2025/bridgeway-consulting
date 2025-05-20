@@ -35,8 +35,9 @@
   --black_70: hsla(0, 0%, 0%, 0.7);
   --rajah: hsl(29, 99%, 67%);
   --white: hsl(0, 0%, 100%);
+  --black: hsl(0, 0%, 0%);
 
-  --gradient-1: linear-gradient(90deg,var(--royal-blue-dark) 0,var(--ksu-purple) 51%,var(--royal-blue-dark));
+  --gradient-1: linear-gradient(90deg, #ffffff 0, #ffffff 51%, #ffffff);
   --gradient-2: linear-gradient(90deg,var(--razzmatazz) ,var(--rajah));
 
   /**
@@ -145,6 +146,10 @@ body {
   font-size: 1.6rem;
 }
 
+main {
+  margin-top: 80px;
+}
+
 ::-webkit-scrollbar { width: 10px; }
 
 ::-webkit-scrollbar-track { background-color: hsl(0, 0%, 95%); }
@@ -237,19 +242,21 @@ body {
 .header .btn { display: none; }
 
 .header {
-  --color: var(--white);
+  --color: var(--black);
 
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   padding-block: 14px;
   z-index: 4;
+  background-color: var(--white);
+  box-shadow: 0 2px 30px hsla(0, 0%, 0%, 0.1);
   transition: var(--transition-1);
 }
 
 .header.active {
-  --color: var(--st-patricks-blue);
+  --color: var(--black);
 
   position: fixed;
   background-color: var(--white);
@@ -317,7 +324,7 @@ body {
 .navbar-item:not(:last-child) { border-bottom: 1px solid var(--platinum); }
 
 .navbar-link {
-  color: var(--space-cadet-1);
+  color: var(--black);
   font-size: var(--fs-8);
   font-weight: var(--fw-600);
   padding-block: 12px;
@@ -353,27 +360,28 @@ body {
   background-repeat: no-repeat, no-repeat, no-repeat;
   background-position: -280px bottom, center, center;
   background-size: auto, cover, auto;
-  padding-block-start: 120px;
+  padding-block-start: 60px;
   padding-block-end: var(--section-padding);
+  margin-top: 0;
 }
 
 .hero-content { margin-block-end: 50px; }
 
 .hero-subtitle {
-  color: var(--chrome-yellow);
+  color: var(--black);
   font-family: var(--ff-source-sans-pro);
   font-size: var(--fs-7);
   margin-block-end: 15px;
 }
 
 .hero-title {
-  color: var(--white);
+  color: var(--black);
   font-size: var(--fs-1);
   margin-block-end: 20px;
 }
 
 .hero-text {
-  color: var(--white);
+  color: var(--black);
   font-size: var(--fs-8);
   margin-block-end: 30px;
 }
@@ -429,11 +437,23 @@ body {
 \*-----------------------------------*/
 
 .service-list {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   gap: 30px;
 }
 
+.service-list li {
+  width: calc((100% - 60px) / 3); /* 3 items per row, accounting for 2 gaps */
+  height: 100%;
+  display: flex; /* To make cards inside take full height */
+}
+
 .service-card {
+  width: 100%; /* Card takes full width of list item */
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   padding: 30px;
   box-shadow: var(--shadow);
   border-radius: var(--radius-12);
@@ -463,14 +483,15 @@ body {
 
 .service-card:hover .card-icon ion-icon { color: var(--white); }
 
+.service-card .text {
+  flex-grow: 1;
+  text-align: center;
+  margin-block-end: 20px;
+}
+
 .service-card .title {
   text-align: center;
   margin-block-end: 15px;
-}
-
-.service-card .text {
-  text-align: center;
-  margin-block-end: 20px;
 }
 
 .service-card .card-btn {
@@ -730,6 +751,24 @@ body {
 \*-----------------------------------*/
 
 /**
+ * responsive for small screens (mobile first)
+ */
+
+@media (max-width: 549px) {
+  .header .logo {
+    font-size: 2.8rem;
+  }
+  
+  main {
+    margin-top: 70px;
+  }
+  
+  .hero {
+    margin-top: 0;
+  }
+}
+
+/**
  * responsive for larger than 550px screen
  */
 
@@ -817,6 +856,9 @@ body {
 
   .container { max-width: 720px; }
 
+  main {
+    margin-top: 90px;
+  }
 
 
   /**
@@ -827,6 +869,7 @@ body {
     min-height: 600px;
     display: grid;
     place-items: center;
+    margin-top: 0;
   }
 
   .hero-content { margin-block-end: 0; }
@@ -929,7 +972,7 @@ body {
 
   .navbar-item:not(:last-child) { border-bottom: none; }
 
-  .navbar-link { color: var(--color); }
+  .navbar-link { color: var(--black); }
 
 
 
@@ -1047,4 +1090,17 @@ body {
 
   .footer-brand { grid-column: auto; }
 
+}
+
+/* Responsive Adjustments */
+@media (max-width: 991px) {
+  .service-list li {
+    width: calc((100% - 30px) / 2); /* 2 items per row */
+  }
+}
+
+@media (max-width: 767px) {
+  .service-list li {
+    width: 100%; /* 1 item per row */
+  }
 }
